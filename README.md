@@ -1,44 +1,35 @@
 # FlowTrack
 
-FlowTrack is a responsive menstrual cycle tracker that helps users record cycle details, view predicted periods and fertile windows, log daily symptoms, and receive personalized tips.
+FlowTrack is an open-source, privacy-first menstrual cycle tracking web application built to help users monitor cycle phases, predict period and fertility windows, log daily symptoms, and receive phase-specific health suggestions—all with zero external server dependencies or data tracking.
 
-## Features
+## 🎯 Purpose & Ecosystem Impact
+Personal health data privacy is a critical concern. Most commercial tracking applications rely on backend databases, user accounts, and telemetry scripts. FlowTrack provides a lightweight, transparent alternative that runs entirely inside the user's browser, keeping sensitive personal health logs completely private and stored strictly in local browser storage (`localStorage`).
 
-- Guided onboarding for age, period dates, duration, flow, symptoms, and cycle length
-- Menstrual, follicular, ovulation, and luteal phase tracking
-- Cycle-length-aware predictions for different cycle lengths
-- Four-month calendar view with:
-  - Actual period days
-  - Predicted period days
-  - Estimated fertile windows
-- Daily symptom and flow logging
-- Personalized tips based on cycle phase, cycle day, symptoms, and flow intensity
-- Local browser storage using `localStorage`
-- Responsive layout for desktop, tablet, and mobile screens
+## 🚀 Key Features
+- **Phase-Aware Cycle Tracking:** Monitors Menstrual, Follicular, Ovulation, and Luteal phases dynamically based on individual cycle parameters.
+- **Visual Calendar Interface:** Generates a 4-month interactive calendar displaying actual period dates, predicted future cycles, and estimated fertile windows.
+- **Daily Health Logger:** Enables users to log daily symptoms, flow intensity, and notes with immediate, phase-tailored wellness tips.
+- **Zero-Dependency Architecture:** Pure native web technologies (HTML5, CSS3, JavaScript) with no heavy frameworks, backend APIs, or external build tools required.
+- **Privacy-Centric:** All personal data is saved locally on the user's device via `localStorage`—no accounts, no tracking scripts, and no server calls.
+- **Responsive Design:** Optimized layout for desktop, tablet, and mobile screens.
 
-## Getting Started
-
-1. Clone or download the repository.
-2. Open `index.html` in a modern web browser.
-3. Complete the onboarding setup.
-4. Use the dashboard and daily symptom logger to track your cycle.
-
-No build tools, server, or external dependencies are required.
-
-## Project Structure
-
+## 📁 Project Structure
 ```text
-Period-Tracker/
-├── index.html    # Application markup and UI structure
-├── style.css     # Layout, theme, and responsive styles
-├── script.js     # Cycle calculations, calendar rendering, and interactions
+FlowTrack/
+├── index.html    # Application markup and accessible UI structure
+├── style.css     # CSS variables, layout grid, and responsive styling
+├── script.js     # Cycle algorithms, calendar rendering engine, and local storage
 └── README.md     # Project documentation
-```
 
-## Privacy
+Quick Start
+Clone the repository: git clone https://github.com/ranveersingh66/FlowTrack.git
 
-FlowTrack stores setup information and daily logs locally in the browser. No backend or external data service is used.
+Open index.html directly in any modern web browser.
 
-## Disclaimer
+Complete the onboarding setup to begin tracking.
 
-FlowTrack is intended for personal tracking and educational purposes. Its predictions and suggestions are estimates and are not medical advice or a diagnosis.
+⚠️ Disclaimer
+FlowTrack is designed for personal tracking and educational purposes. Predictions and suggestions are statistical estimates based on user inputs and do not constitute medical advice or clinical diagnosis.
+
+📄 License
+MIT License
