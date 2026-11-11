@@ -26,6 +26,7 @@ body {
     background-color: var(--bg-main);
     color: var(--text-dark);
     line-height: 1.6;
+    overflow-x: hidden;
 }
 
 /* Modal Overlay & Onboarding Setup */
@@ -463,8 +464,8 @@ body {
 }
 
 .month-tag.future {
-    background-color: var(--secondary-light);
-    color: var(--secondary-color);
+    background-color: var(--primary-light);
+    color: var(--primary-color);
 }
 
 /* Calendar Grid Styling */
@@ -592,6 +593,38 @@ body {
 
 /* Responsive Styles */
 @media (max-width: 768px) {
+    html,
+    body {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .navbar {
+        width: 100%;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.75rem;
+        padding: 0.9rem 1rem;
+    }
+
+    .nav-links {
+        width: 100%;
+        min-width: 0;
+        justify-content: space-between;
+        gap: 0.5rem;
+    }
+
+    .nav-links a {
+        font-size: 0.8rem;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem auto;
+        padding: 0 0.75rem;
+    }
+
     .radio-options,
     .symptom-options {
         display: grid;
@@ -602,13 +635,156 @@ body {
         padding: 1.25rem;
     }
 
+    .cycle-card {
+        width: 100%;
+        min-width: 0;
+        padding: 1.25rem 1rem;
+    }
+
+    .cycle-card h2 {
+        font-size: 1.8rem;
+        overflow-wrap: anywhere;
+    }
+
+    .cycle-card h2.next-period-message {
+        font-size: 1.15rem;
+        line-height: 1.35;
+    }
+
+    .cycle-stats {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+    }
+
+    .dashboard-section,
+    .calendar-section,
+    .log-section,
+    .insight-card {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .insight-card {
+        overflow-wrap: anywhere;
+    }
+
+    .stat-label,
+    .stat-value {
+        font-size: 0.75rem;
+    }
+
     .four-month-grid {
         grid-template-columns: 1fr;
+        gap: 1rem;
     }
 
     .section-header {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.5rem;
+    }
+
+    .legend {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 0.5rem 0.75rem;
+    }
+
+    .legend-item {
+        font-size: 0.75rem;
+    }
+
+    .month-card {
+        padding: 1rem 0.75rem;
+        min-width: 0;
+    }
+
+    .day {
+        padding: 0.4rem 0;
+        font-size: 0.8rem;
+    }
+
+    .button-selector {
+        flex-wrap: wrap;
+    }
+
+    .button-selector label {
+        min-width: calc(50% - 0.25rem);
+    }
+
+    .checkbox-grid {
+        display: grid;
+        gap: 0.5rem;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .log-section {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-links {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .nav-links a {
+        font-size: 0.85rem;
+    }
+
+    .modal-overlay {
+        align-items: flex-start;
+        padding: 0.5rem;
+    }
+
+    .modal-card {
+        max-height: calc(100vh - 1rem);
+        padding: 1rem;
+    }
+
+    .step-indicator {
+        gap: 0.25rem;
+        margin-bottom: 1rem;
+    }
+
+    .step-dot {
+        width: 24px;
+        height: 24px;
+        font-size: 0.75rem;
+    }
+
+    .step-line {
+        width: 1rem;
+    }
+
+    .cycle-stats {
+        grid-template-columns: 1fr;
+        gap: 0.65rem;
+    }
+
+    .stat-item {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+    .stat-label,
+    .stat-value {
+        font-size: 0.8rem;
+    }
+
+    .month-title {
+        font-size: 0.9rem;
+    }
+
+    .day {
+        font-size: 0.75rem;
+    }
+
+    .day.today {
+        border-width: 1px;
     }
 }
