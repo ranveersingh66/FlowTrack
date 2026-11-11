@@ -192,6 +192,19 @@
         function renderCalendar(startDate, periodDuration, cycleLength, nextPeriodStart) {
             const today = new Date();
             today.setHours(0, 0, 0, 0);
+            const visibleStart = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+            const visibleEnd = new Date(today.getFullYear(), today.getMonth() + 3, 0);
+            const periodStarts = [];
+            let periodStart = new Date(startDate);
+
+            while (periodStart > visibleStart) {
+                periodStart = addDays(periodStart, -cycleLength);
+            }
+            while (periodStart <= visibleEnd) {
+                periodStarts.push(new Date(periodStart));
+                periodStart = addDays(periodStart, cycleLength);
+            }
+
             calendarGrid.innerHTML = '';
 
             for (let monthOffset = -1; monthOffset <= 2; monthOffset += 1) {
@@ -229,18 +242,21 @@
                     day.className = 'day';
                     day.textContent = dayNumber;
 
-                    const actualPeriodEnd = addDays(startDate, periodDuration - 1);
-                    const predictedPeriodEnd = addDays(nextPeriodStart, periodDuration - 1);
-                    const fertileStart = addDays(nextPeriodStart, -14);
-                    const fertileEnd = addDays(nextPeriodStart, -9);
+                    periodStarts.forEach((cycleStart) => {
+                        const periodEnd = addDays(cycleStart, periodDuration - 1);
+                        const estimatedOvulationDay = Math.max(periodDuration + 1, cycleLength - 14);
+                        const fertileStart = addDays(cycleStart, Math.max(periodDuration, estimatedOvulationDay - 5));
+                        const fertileEnd = addDays(cycleStart, Math.min(cycleLength - 1, estimatedOvulationDay + 1));
 
-                    if (isBetween(date, startDate, actualPeriodEnd)) {
-                        day.classList.add('actual-period');
-                    } else if (isBetween(date, nextPeriodStart, predictedPeriodEnd)) {
-                        day.classList.add('predicted-period');
-                    } else if (isBetween(date, fertileStart, fertileEnd)) {
-                        day.classList.add('fertile');
-                    }
+                        if (isBetween(date, cycleStart, periodEnd)) {
+                            day.classList.add(cycleStart.getTime() === startDate.getTime()
+                                ? 'actual-period'
+                                : 'predicted-period');
+                        } else if (isBetween(date, fertileStart, fertileEnd)) {
+                            day.classList.add('fertile');
+                        }
+                    });
+
                     if (date.getTime() === today.getTime()) {
                         day.classList.add('today');
                     }
