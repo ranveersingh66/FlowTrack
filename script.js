@@ -4,7 +4,6 @@
         const steps = document.querySelectorAll('.step-content');
         const stepDots = document.querySelectorAll('.step-dot');
         const nextStepButton = document.getElementById('nextStepButton');
-        const skipSetupButton = document.getElementById('skipSetupButton');
         const calendarGrid = document.getElementById('calendarGrid');
         const flowTable = document.getElementById('flowTable');
         const periodDurationValue = document.getElementById('periodDurationValue');
@@ -396,12 +395,6 @@
             if (currentStep === steps.length - 1) {
                 nextStepButton.textContent = 'Finish Setup';
             }
-        });
-
-        skipSetupButton.addEventListener('click', () => {
-            saveSetupDetails();
-            updateDashboard();
-            onboardingModal.style.display = 'none';
         });
 
         restoreDailyLog();
