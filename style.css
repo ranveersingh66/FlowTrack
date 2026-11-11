@@ -1,0 +1,617 @@
+/* Core Color Palette & Variables */
+:root {
+    --primary-color: #e85a71;
+    --primary-light: #fbebee;
+    --primary-dark: #d44960;
+    --secondary-color: #4ea1d3;
+    --secondary-light: #eef7fc;
+    --text-dark: #2c3e50;
+    --text-muted: #7f8c8d;
+    --bg-main: #f9f9fb;
+    --card-bg: #ffffff;
+    --border-color: #eaeaea;
+    --overlay-bg: rgba(0, 0, 0, 0.55);
+    --border-radius: 12px;
+}
+
+/* Global Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* Modal Overlay & Onboarding Setup */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--overlay-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    padding: 1rem;
+}
+
+.modal-card {
+    background-color: var(--card-bg);
+    width: 100%;
+    max-width: 520px;
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.modal-header h2 {
+    color: var(--primary-color);
+    font-size: 1.6rem;
+}
+
+.modal-header p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
+}
+
+/* Step Indicators */
+.step-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.step-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: var(--border-color);
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.step-dot.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.step-line {
+    width: 40px;
+    height: 2px;
+    background-color: var(--border-color);
+}
+
+/* Form Inputs inside Modal */
+.step-content {
+    display: none;
+}
+
+.step-content.active {
+    display: block;
+}
+
+.step-content h3 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.step-description {
+    color: var(--text-muted);
+    margin: -0.5rem 0 1.25rem;
+}
+
+.stepper-control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 0.6rem 1rem;
+    color: var(--primary-color);
+}
+
+.stepper-button {
+    background: transparent;
+    border: 0;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 2rem;
+}
+
+.visually-hidden-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.flow-table {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.flow-row {
+    display: grid;
+    grid-template-columns: 1.2fr repeat(3, 1fr);
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 0.7rem;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.flow-row:first-child {
+    border-top: 0;
+}
+
+.flow-header {
+    color: var(--primary-color);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.flow-choice input {
+    position: absolute;
+    opacity: 0;
+}
+
+.flow-choice span {
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid #9aa2a8;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.flow-choice input:checked + span {
+    border-color: var(--primary-color);
+    box-shadow: inset 0 0 0 4px white;
+    background-color: var(--primary-color);
+}
+
+.symptom-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.info-note,
+.insight-card {
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+}
+
+.info-note,
+.insight-card {
+    background-color: var(--primary-light);
+    color: var(--text-dark);
+}
+
+.insight-card {
+    max-width: 650px;
+    margin: 0 auto 0.75rem;
+    text-align: left;
+}
+
+.suggestions-card h3 {
+    margin: 0 0 0.5rem;
+    color: var(--text-dark);
+    font-size: 1rem;
+}
+
+.suggestions-card ul {
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.suggestions-card li + li {
+    margin-top: 0.4rem;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+}
+
+.input-field {
+    width: 100%;
+    padding: 0.65rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+.field-hint {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+}
+
+.radio-options {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.radio-card {
+    flex: 1;
+    border: 1px solid var(--border-color);
+    padding: 0.65rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.checkbox-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tag-chip {
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+/* Modal Buttons */
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.65rem 1.25rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    padding: 0.65rem 1.25rem;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--card-bg);
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+.nav-links a.active {
+    color: var(--primary-color);
+}
+
+/* Page Layout Container */
+.container {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* Dashboard Summary Card */
+.dashboard-section {
+    margin-bottom: 2rem;
+}
+
+.cycle-card {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.phase-badge {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.cycle-card h2 {
+    font-size: 2.2rem;
+    margin-top: 0.5rem;
+}
+
+.cycle-card h2.next-period-message {
+    font-size: 1.35rem;
+    font-weight: 700;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+}
+
+.cycle-stats {
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.25rem;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.stat-value {
+    font-weight: 600;
+}
+
+/* 4-Month Multi-Calendar Grid */
+.calendar-section {
+    margin-bottom: 2rem;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.four-month-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.month-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 1.25rem;
+}
+
+.month-card.highlight-month {
+    border: 2px solid var(--primary-color);
+}
+
+.month-title {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.month-tag {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 12px;
+    background-color: var(--bg-main);
+    color: var(--text-muted);
+}
+
+.month-tag.current {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+}
+
+.month-tag.future {
+    background-color: var(--secondary-light);
+    color: var(--secondary-color);
+}
+
+/* Calendar Grid Styling */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.3rem;
+    text-align: center;
+}
+
+.day-header {
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    padding-bottom: 0.3rem;
+}
+
+.day {
+    padding: 0.45rem 0;
+    font-size: 0.85rem;
+    border-radius: 6px;
+}
+
+.day.today {
+    border: 2px solid var(--text-dark);
+    font-weight: bold;
+}
+
+/* Actual Past Period Styling */
+.day.actual-period {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+}
+
+/* Predicted Period Styling */
+.day.predicted-period {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    border: 1.5px dashed var(--primary-color);
+    font-weight: 600;
+}
+
+/* Fertile Window Styling */
+.day.fertile {
+    background-color: var(--secondary-light);
+    color: var(--secondary-color);
+}
+
+/* Legend */
+.legend {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.8rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.actual-dot { background-color: var(--primary-color); }
+.predicted-dot { background-color: var(--primary-light); border: 1px solid var(--primary-color); }
+.fertile-dot { background-color: var(--secondary-color); }
+
+/* Symptom Logger Card */
+.card {
+    background-color: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+}
+
+.button-selector {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.button-selector input[type="radio"] {
+    display: none;
+}
+
+.button-selector label {
+    flex: 1;
+    text-align: center;
+    padding: 0.4rem 0;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.button-selector input[type="radio"]:checked + label {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.chip {
+    font-size: 0.85rem;
+    background-color: var(--bg-main);
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border-color);
+    margin-top: 3rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .radio-options,
+    .symptom-options {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .modal-card {
+        max-height: 90vh;
+        overflow-y: auto;
+        padding: 1.25rem;
+    }
+
+    .four-month-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+}

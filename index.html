@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowTrack - Personal Cycle Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Onboarding Modal Overlay -->
+    <div class="modal-overlay" id="onboardingModal">
+        <div class="modal-card">
+            
+            <!-- Modal Header / Progress Steps -->
+            <div class="modal-header">
+                <h2>Welcome to FlowTrack</h2>
+                <p>Let's set up your personalized cycle calendar in a few quick steps.</p>
+                <div class="step-indicator">
+                    <span class="step-dot active">1</span><span class="step-line"></span>
+                    <span class="step-dot">2</span><span class="step-line"></span>
+                    <span class="step-dot">3</span><span class="step-line"></span>
+                    <span class="step-dot">4</span><span class="step-line"></span>
+                    <span class="step-dot">5</span>
+                </div>
+            </div>
+
+            <!-- Step 1: Age -->
+            <div class="step-content active" id="step1">
+                <h3>How old are you?</h3>
+                <p class="step-description">This helps us tailor your cycle insights.</p>
+                
+                <div class="form-group">
+                    <label class="form-label" for="age">Your age</label>
+                    <input type="number" id="age" class="input-field" placeholder="e.g. 24" min="10" max="60" required>
+                    <span class="field-hint">Enter a number between 10 and 60.</span>
+                </div>
+            </div>
+
+            <!-- Step 2: Current Status & Past Period -->
+            <div class="step-content" id="step2">
+                <h3>When was your last period?</h3>
+                <p class="step-description">Cycle day 1 is the first day of bleeding.</p>
+                <div class="form-group">
+                    <label class="form-label">Are you currently on your period?</label>
+                    <div class="radio-options">
+                        <label class="radio-card">
+                            <input type="radio" name="status" value="active">
+                            <span>Yes, currently on it</span>
+                        </label>
+                        <label class="radio-card">
+                            <input type="radio" name="status" value="inactive" checked>
+                            <span>No, it ended recently</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" id="periodDateLabel" for="lastPeriodDate">When did your last period start?</label>
+                    <input type="date" id="lastPeriodDate" class="input-field" value="2026-10-10">
+                </div>
+            </div>
+
+            <!-- Step 3: Flow Details -->
+            <div class="step-content" id="step3">
+                <h3>How would you describe your period flow?</h3>
+                <p class="step-description">Tell us how your flow usually changes each day.</p>
+
+                <div class="form-group">
+                    <label class="form-label" for="periodDuration">How many days does your period usually last?</label>
+                    <div class="stepper-control">
+                        <button type="button" class="stepper-button" data-step="-1" aria-label="Decrease period duration">-</button>
+                        <strong id="periodDurationValue">5 Days</strong>
+                        <button type="button" class="stepper-button" data-step="1" aria-label="Increase period duration">+</button>
+                    </div>
+                    <input type="number" id="periodDuration" class="visually-hidden-input" min="2" max="10" value="5">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">How is your flow on each day?</label>
+                    <div class="flow-table" id="flowTable"></div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="cycleLength">Average cycle length</label>
+                    <input type="number" id="cycleLength" class="input-field" placeholder="e.g. 28" min="20" max="45" value="28">
+                    <span class="field-hint">For teens, cycles between 21 and 45 days can be common.</span>
+                </div>
+            </div>
+
+            <!-- Step 4: Symptoms -->
+            <div class="step-content" id="step4">
+                <h3>Do you experience symptoms around your periods?</h3>
+                <p class="step-description">Select all that apply.</p>
+                <div class="checkbox-tags symptom-options">
+                    <label class="tag-chip"><input type="checkbox" value="Period cramps"> Period cramps</label>
+                    <label class="tag-chip"><input type="checkbox" value="Spotting"> Spotting</label>
+                    <label class="tag-chip"><input type="checkbox" value="White discharge"> White discharge</label>
+                    <label class="tag-chip"><input type="checkbox" value="Acne"> Acne</label>
+                    <label class="tag-chip"><input type="checkbox" value="Fatigue"> Fatigue</label>
+                    <label class="tag-chip"><input type="checkbox" value="Body pain"> Body pain</label>
+                    <label class="tag-chip"><input type="checkbox" value="Bloating"> Bloating</label>
+                    <label class="tag-chip"><input type="checkbox" value="Vaginal dryness"> Vaginal dryness</label>
+                    <label class="tag-chip"><input type="checkbox" value="Mood swings"> Mood swings</label>
+                    <label class="tag-chip"><input type="checkbox" value="Other"> Other</label>
+                </div>
+            </div>
+
+            <!-- Step 5: Preferences -->
+            <div class="step-content" id="step5">
+                <h3>Personalize your insights</h3>
+                <div class="form-group">
+                    <label class="form-label" for="primaryGoal">What is your primary goal?</label>
+                    <select class="input-field" id="primaryGoal">
+                        <option>Track cycle dates & symptoms</option>
+                    </select>
+                </div>
+                <div class="info-note">
+                    <strong>Your privacy matters.</strong>
+                    Your answers are stored only in this browser.
+                </div>
+            </div>
+
+            <!-- Modal Footer Buttons -->
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" id="skipSetupButton">Skip Setup</button>
+                <button type="button" class="btn-primary" id="nextStepButton">Next Step</button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="navbar">
+        <div class="logo">FlowTrack</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#dashboard" class="active">Dashboard</a></li>
+                <li><a href="#calendar">Multi-Month View</a></li>
+                <li><a href="#log">Log Symptoms</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <!-- Cycle Summary Section -->
+        <section id="dashboard" class="dashboard-section">
+            <div class="cycle-card">
+                <span class="badge phase-badge" id="phaseBadge">Follicular Phase</span>
+                <h2 id="cycleDay">Day 12</h2>
+                <p class="subtitle" id="nextPeriodSummary">Next predicted period starts in 16 days</p>
+                <p class="subtitle" id="preferencesSummary"></p>
+                <div class="insight-card" id="ageInsight"></div>
+                <div class="insight-card suggestions-card" id="suggestionsCard">
+                    <h3>Today's tips</h3>
+                    <ul id="suggestionsList"></ul>
+                </div>
+
+                <div class="cycle-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Cycle Length</span>
+                        <span class="stat-value" id="cycleLengthSummary">28 Days (Avg)</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Period Duration</span>
+                        <span class="stat-value" id="periodDurationSummary">5 Days</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Next Period</span>
+                        <span class="stat-value" id="nextPeriodSummaryDate">Nov 26 - Nov 30</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4-Month Calendar Timeline View (2 Past Months + 2 Expected Future Months) -->
+        <section id="calendar" class="calendar-section">
+            <div class="section-header">
+                <h3>Cycle History & Outlook</h3>
+                <div class="legend">
+                    <span class="legend-item"><span class="dot actual-dot"></span> Actual Period</span>
+                    <span class="legend-item"><span class="dot predicted-dot"></span> Predicted Period</span>
+                    <span class="legend-item"><span class="dot fertile-dot"></span> Fertile Window</span>
+                </div>
+            </div>
+
+            <div class="four-month-grid" id="calendarGrid">
+
+                <!-- Month 1: Past Month (September 2026) -->
+                <div class="month-card">
+                    <div class="month-title">September 2026 <span class="month-tag">Past</span></div>
+                    <div class="calendar-grid">
+                        <div class="day-header">S</div><div class="day-header">M</div><div class="day-header">T</div><div class="day-header">W</div><div class="day-header">T</div><div class="day-header">F</div><div class="day-header">S</div>
+                        
+                        <div class="day empty"></div><div class="day empty"></div><div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div>
+                        <div class="day">6</div><div class="day">7</div><div class="day">8</div><div class="day">9</div><div class="day">10</div><div class="day">11</div><div class="day">12</div>
+                        <div class="day actual-period">13</div><div class="day actual-period">14</div><div class="day actual-period">15</div><div class="day actual-period">16</div><div class="day actual-period">17</div><div class="day">18</div><div class="day">19</div>
+                        <div class="day">20</div><div class="day">21</div><div class="day">22</div><div class="day">23</div><div class="day fertile">24</div><div class="day fertile">25</div><div class="day fertile">26</div>
+                        <div class="day fertile">27</div><div class="day">28</div><div class="day">29</div><div class="day">30</div>
+                    </div>
+                </div>
+
+                <!-- Month 2: Past / Current Month (October 2026) -->
+                <div class="month-card">
+                    <div class="month-title">October 2026 <span class="month-tag">Past</span></div>
+                    <div class="calendar-grid">
+                        <div class="day-header">S</div><div class="day-header">M</div><div class="day-header">T</div><div class="day-header">W</div><div class="day-header">T</div><div class="day-header">F</div><div class="day-header">S</div>
+                        
+                        <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div><div class="day empty"></div><div class="day">1</div><div class="day">2</div><div class="day">3</div>
+                        <div class="day">4</div><div class="day">5</div><div class="day">6</div><div class="day">7</div><div class="day">8</div><div class="day">9</div><div class="day actual-period">10</div>
+                        <div class="day actual-period">11</div><div class="day actual-period">12</div><div class="day actual-period">13</div><div class="day actual-period">14</div><div class="day">15</div><div class="day">16</div><div class="day">17</div>
+                        <div class="day">18</div><div class="day">19</div><div class="day">20</div><div class="day fertile">21</div><div class="day fertile">22</div><div class="day fertile">23</div><div class="day fertile">24</div>
+                        <div class="day">25</div><div class="day">26</div><div class="day">27</div><div class="day">28</div><div class="day">29</div><div class="day">30</div><div class="day">31</div>
+                    </div>
+                </div>
+
+                <!-- Month 3: Current / Upcoming Month (November 2026) -->
+                <div class="month-card highlight-month">
+                    <div class="month-title">November 2026 <span class="month-tag current">Current</span></div>
+                    <div class="calendar-grid">
+                        <div class="day-header">S</div><div class="day-header">M</div><div class="day-header">T</div><div class="day-header">W</div><div class="day-header">T</div><div class="day-header">F</div><div class="day-header">S</div>
+                        
+                        <div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div><div class="day">6</div><div class="day">7</div>
+                        <div class="day">8</div><div class="day">9</div><div class="day today">10</div><div class="day">11</div><div class="day">12</div><div class="day">13</div><div class="day">14</div>
+                        <div class="day fertile">15</div><div class="day fertile">16</div><div class="day fertile">17</div><div class="day fertile">18</div><div class="day">19</div><div class="day">20</div><div class="day">21</div>
+                        <div class="day">22</div><div class="day">23</div><div class="day">24</div><div class="day">25</div><div class="day predicted-period">26</div><div class="day predicted-period">27</div><div class="day predicted-period">28</div>
+                        <div class="day predicted-period">29</div><div class="day predicted-period">30</div>
+                    </div>
+                </div>
+
+                <!-- Month 4: Future Expected Month (December 2026) -->
+                <div class="month-card">
+                    <div class="month-title">December 2026 <span class="month-tag future">Expected</span></div>
+                    <div class="calendar-grid">
+                        <div class="day-header">S</div><div class="day-header">M</div><div class="day-header">T</div><div class="day-header">W</div><div class="day-header">T</div><div class="day-header">F</div><div class="day-header">S</div>
+                        
+                        <div class="day empty"></div><div class="day empty"></div><div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div>
+                        <div class="day">6</div><div class="day">7</div><div class="day">8</div><div class="day">9</div><div class="day">10</div><div class="day">11</div><div class="day fertile">12</div>
+                        <div class="day fertile">13</div><div class="day fertile">14</div><div class="day fertile">15</div><div class="day">16</div><div class="day">17</div><div class="day">18</div><div class="day">19</div>
+                        <div class="day">20</div><div class="day">21</div><div class="day">22</div><div class="day">23</div><div class="day predicted-period">24</div><div class="day predicted-period">25</div><div class="day predicted-period">26</div>
+                        <div class="day predicted-period">27</div><div class="day predicted-period">28</div><div class="day">29</div><div class="day">30</div><div class="day">31</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Daily Symptom Logger -->
+        <section id="log" class="card log-section">
+            <h3 class="card-title">Log Today's Symptoms</h3>
+            <form class="log-form">
+                
+                <div class="form-group">
+                    <label class="form-label">Flow Intensity</label>
+                    <div class="button-selector">
+                        <input type="radio" id="flow-none" name="flow" value="None" checked>
+                        <label for="flow-none">None</label>
+
+                        <input type="radio" id="flow-light" name="flow" value="Light">
+                        <label for="flow-light">Light</label>
+
+                        <input type="radio" id="flow-medium" name="flow" value="Medium">
+                        <label for="flow-medium">Medium</label>
+
+                        <input type="radio" id="flow-heavy" name="flow" value="Heavy">
+                        <label for="flow-heavy">Heavy</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Physical Symptoms</label>
+                    <div class="checkbox-grid">
+                        <label class="chip"><input type="checkbox" value="Cramps"> Cramps</label>
+                        <label class="chip"><input type="checkbox" value="Headache"> Headache</label>
+                        <label class="chip"><input type="checkbox" value="Bloating"> Bloating</label>
+                        <label class="chip"><input type="checkbox" value="Acne"> Acne</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary">Save Entry</button>
+            </form>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>FlowTrack &copy; 2026 - Front-End Web Technologies Project</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
