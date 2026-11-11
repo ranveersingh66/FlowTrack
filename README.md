@@ -12,6 +12,12 @@ Personal health data privacy is a critical concern. Most commercial tracking app
 - **Zero-Dependency Architecture:** Pure native web technologies (HTML5, CSS3, JavaScript) with no heavy frameworks, backend APIs, or external build tools required.
 - **Privacy-Centric:** All personal data is saved locally on the user's device via `localStorage`—no accounts, no tracking scripts, and no server calls.
 - **Responsive Design:** Optimized layout for desktop, tablet, and mobile screens.
+  
+⚠️ Disclaimer
+FlowTrack is designed for personal tracking and educational purposes. Predictions and suggestions are statistical estimates based on user inputs and do not constitute medical advice or clinical diagnosis.
+
+📄 License
+MIT License
 
 ## 📁 Project Structure
 ```text
@@ -28,8 +34,3 @@ Open index.html directly in any modern web browser.
 
 Complete the onboarding setup to begin tracking.
 
-⚠️ Disclaimer
-FlowTrack is designed for personal tracking and educational purposes. Predictions and suggestions are statistical estimates based on user inputs and do not constitute medical advice or clinical diagnosis.
-
-📄 License
-MIT License
